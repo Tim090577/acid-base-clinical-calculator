@@ -130,7 +130,11 @@ function clamp(n: number, min: number, max: number) {
 }
 
 function assetPath(path: string) {
-  return `${import.meta.env.BASE_URL}${path}`;
+  const cleanPath = path.replace(/^\/+/, "");
+  if (typeof window !== "undefined" && window.location.hostname.endsWith("github.io")) {
+    return `/acid-base-clinical-calculator/${cleanPath}`;
+  }
+  return `/${cleanPath}`;
 }
 
 function App() {
