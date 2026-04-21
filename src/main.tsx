@@ -129,6 +129,10 @@ function clamp(n: number, min: number, max: number) {
   return Math.min(max, Math.max(min, n));
 }
 
+function assetPath(path: string) {
+  return `${import.meta.env.BASE_URL}${path}`;
+}
+
 function App() {
   const [pH, setPH] = useState("7.25");
   const [pco2, setPco2] = useState("28");
@@ -697,7 +701,7 @@ function LectureScreenshots() {
     <Panel title="老師講義截圖對照" description="酸鹼講義重點頁已嵌入，點圖可開原尺寸。">
       <div className="lecture-grid">
         {lectureScreenshots.map(([file, title, note]) => {
-          const src = `/lecture-screenshots/${file}`;
+          const src = assetPath(`lecture-screenshots/${file}`);
           return (
             <article className="lecture-card" key={file}>
               <a href={src} target="_blank" rel="noreferrer" aria-label={`開啟 ${title} 講義截圖`}>
@@ -711,7 +715,7 @@ function LectureScreenshots() {
           );
         })}
         {pocketScreenshots.map(([file, title, note]) => {
-          const src = `/pocket-screenshots/${file}`;
+          const src = assetPath(`pocket-screenshots/${file}`);
           return (
             <article className="lecture-card" key={file}>
               <a href={src} target="_blank" rel="noreferrer" aria-label={`開啟 ${title} 截圖`}>
@@ -763,7 +767,7 @@ function DavenportMap({
       <div className="map-layout">
         <div className="map-figure">
           <div className="davenport-frame">
-            <img src="/lecture-screenshots/davenport-map.png" alt="Davenport acid-base map with patient point" />
+            <img src={assetPath("lecture-screenshots/davenport-map.png")} alt="Davenport acid-base map with patient point" />
             <div
               className={`patient-point ${outside ? "outside" : ""}`}
               style={{ left: `${leftPct}%`, top: `${topPct}%` }}
